@@ -23,17 +23,11 @@ package() {
   cp -R "${srcdir}/opt/brother" "${pkgdir}/opt/brother"
 
   mkdir -p "${pkgdir}/usr/lib/cups/filter"
-  echo "#! /opt/brother/Printers/HLL2310D/cupswrapper/brother_lpdwrapper_HLL2310D" \
-    > "${srcdir}/filter-shim"
-
-  cp "${srcdir}/opt/brother/Printers/HLL2310D/cupswrapper/lpdwrapper" \
-    "${pkgdir}/brother_lpdwrapper_HLL2310D"
-
-  install -m 0755 -o root -g root "${srcdir}/filter-shim" \
-    "${pkgdir}/brother_lpdwrapper_HLL2310D"
+  echo "#! /usr/lib/cups/filter/brother_lpdwrapper_HLL2310D" > "${srcdir}/filter-shim"
+  install -m 0755 -o root -g root "${srcdir}/filter-shim" "${pkgdir}/usr/lib/cups/filter/brother_lpdwrapper_HLL2310D"
 
   mkdir -p "${pkgdir}/usr/share/ppd/cupsfilters"
   install -m 0644 -o root -g root \
-    "${srcdir}/opt/brother/Printers/HLL2310D/cupswrapper/brother-HLL2310D-cups-en.ppd" \
+    "${pkgdir}/opt/brother/Printers/HLL2310D/cupswrapper" \
     "${pkgdir}/usr/share/ppd/cupsfilters"
 }
